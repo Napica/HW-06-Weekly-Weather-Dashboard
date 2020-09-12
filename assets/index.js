@@ -1,4 +1,3 @@
-console.log("This is connected")
-
-var test = $("#start")
-console.log(test)
+$(document).ready(function(){
+    console.logI("this is linked")
+});
