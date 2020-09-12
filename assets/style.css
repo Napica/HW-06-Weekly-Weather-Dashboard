@@ -1,3 +1,16 @@
-h1 {
-    color:blue;
+*::before, ::after {
+    margin: 0;
+    padding: 0;
 }
+
+#title {
+    color: white;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.jumbotron {
+    background: rgb(32, 41, 41);
+}
+
+
