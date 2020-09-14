@@ -1,53 +1,38 @@
-$(document).ready(function(){
-   
-    // DOM variables
-        var searchDisplayEl = $("#search-display")
-    // JS variables
-        var apiKey = "9645c954451461a29576d480f62bed18";
-        var citySearch = []
-        // var previousSearch;
+$(document).ready(function () {
+  // DOM variables
 
-    // function definitiions
+  var searchInput = $("#search-section");
+  var searchDisplayEl = $("#search-display");
+  var submitBtnEl = $("#submit-btn");
+  var day1=$("#day-1")
+  var day2=$("#day-2")
+  var day3=$("#day-3")
+  var day4=$("#day-4")
+  var day5=$("#day-5")
 
-    //     function setup(){
-    //     var currentlocalStorage = JSON.parse(localStorage.getItem("previousSearch"));
-    //     if (currentlocalStorage !== null) {
-    //         previousSearch = currentlocalStorage
-    //     } else {
-    //         previousSearch = [];
-    //     }
-    // }
+  // JS variables
 
-    // function displayPrevious(){
-    //     setup();
-    //     for (var i = 0; previousSearch.length; i++);
+  var apiKey = "a5d50a95ebdfda3d62868461aaacdca4";
+  var queryURL =
+    "https://api.openweathermap.org/data/2.5/weather?q=" +
+    city +
+    "&appid=" +
+    apiKey;
+  var city = "Atlanta";
 
-    // }
+  // function definitiions
 
-    // function calls
+  // function calls
 
-    //    setup();
-    //    displayPrevious();
+  // Event listeners
 
-    // Event listeners
-
-    $("#search-form").on("submit", function(event){
-        event.preventDefault();
-        var searchCriteria = $("#search-term").val();  
-        var queryURL = "api.openweathermap.org/data/2.5/weather?q=[london]&appid=" + apiKey;
-        $.ajax ({
-            url: queryURL,
-            method:"GET"
-        }).then(function(response) {
-    
-            // searchDisplayEl.empty()
-            // for (var i = 0; i < response.data.length; i ++){
-            // searchDisplayEl.append();
-            // }
-
-            // previousSearch.push(searchCriteria)
-            // localStorage.setItem("previousSearch")
-        })
-
-    })
+  submitBtnEl.on("click", function (event) {
+    event.preventDefault();
+    $.ajax({
+      url: queryURL,
+      method: "GET",
+    }).then(function (response) {
+      console.log(response);
+    });
+  });
 });
