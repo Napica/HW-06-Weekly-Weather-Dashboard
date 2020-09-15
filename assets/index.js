@@ -3,7 +3,6 @@ $(document).ready(function () {
   var searchFormEl = $("#search-form");
   var searchDisplayEl = $("#search-display");
   var submitBtnEl = $("#submit-btn");
-  
 
   // JS variables
 
@@ -82,6 +81,15 @@ $(document).ready(function () {
       // updates the current wind speed
       var windSpeedConvert = success.wind.speed;
       $("#wind").append("Wind Speed: " + windSpeedConvert + " mph");
+
+      // update for interactive UV index
+      
+      var latitude = success.coord.lat
+      var longitutde = success.coord.lon
+      console.log(latitude)
+      console.log(longitutde);
+
+
     });
 
     // fiveDayForcast();
