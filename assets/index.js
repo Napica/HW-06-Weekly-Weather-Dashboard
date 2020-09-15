@@ -55,32 +55,32 @@ $(document).ready(function () {
       cityName.text(updateName);
       cityName.addClass("font-weight-bold");
       cityName.css("font-size", "40px");
-      $("#city-name").prepend(cityName);
+      $(".city-name").prepend(cityName);
 
       // updates the current date of the search
       var timeLib = moment();
       var datePull = timeLib.format("L");
       datePull.css = ("padding", "20px");
-      $("#currentDate").append("( " + datePull + " )");
+      $(".currentDate").append("( " + datePull + " )");
 
       //  NEED TO WORK ON ADDING ICON
       var weatherStamp = success.weather.icon;
-      $("#weatherIcon").append(weatherStamp);
+      $(".weatherIcon").append(weatherStamp);
 
       // updates the current temperature in Farhenheit
 
       var updateWeatherTemp = success.main.temp;
-      $("#temperature").append(
+      $(".temperature").append(
         "Temperature: " + updateWeatherTemp + "\u00B0" + " F"
       );
 
       // updates the current humidity of the location
       var updateHumidity = success.main.humidity;
-      $("#humidity").append("Humidity: " + updateHumidity + " %");
+      $(".humidity").append("Humidity: " + updateHumidity + " %");
 
       // updates the current wind speed
       var windSpeedConvert = success.wind.speed;
-      $("#wind").append("Wind Speed: " + windSpeedConvert + " mph");
+      $(".wind").append("Wind Speed: " + windSpeedConvert + " mph");
 
       // update for interactive UV index
 
@@ -101,8 +101,6 @@ $(document).ready(function () {
         }).then(function (indexValue) {
           var indexUVValue = $("#UV-Index");
           indexUVValue.empty();
-          // console.log(indexValue.value);
-          // console.log(queryURL_uvIndex);
           
         })
     });
