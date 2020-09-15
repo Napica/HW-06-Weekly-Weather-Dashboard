@@ -3,15 +3,30 @@ $(document).ready(function () {
   var searchFormEl = $("#search-form");
   var searchDisplayEl = $("#search-display");
   var submitBtnEl = $("#submit-btn");
-  var day1 = $("#day-1");
-  var day2 = $("#day-2");
-  var day3 = $("#day-3");
-  var day4 = $("#day-4");
-  var day5 = $("#day-5");
+  
 
   // JS variables
 
   // function definitiions
+  //   function fiveDayForcast() {
+  //     // for 5 day forcast section
+
+  //     var secondApiKey = "a5d50a95ebdfda3d62868461aaacdca4";
+  //     var city = $("#search-section").val();
+  //     var queryURL =
+  //       "http://api.openweathermap.org/data/2.5/forecast?q=" +
+  //       city +
+  //       "&units=imperial" +
+  //       "&appid=" +
+  //       secondApiKey;
+
+  //     $.ajax({
+  //       url: queryURL,
+  //       method: "GET",
+  //     }).then(function (response) {
+  //         console.log(response);
+  //     });
+  //   }
 
   // function calls
 
@@ -50,49 +65,26 @@ $(document).ready(function () {
       $("#currentDate").append("( " + datePull + " )");
 
       //  NEED TO WORK ON ADDING ICON
-      //   var weatherStamp = success.weather.icon;
-      //   var weatherIconImage = $("<span>");
-      //   weatherIconImage.html(weatherStamp);
-      //   $("#weatherIcon").append(weatherIconImage);
+      var weatherStamp = success.weather.icon;
+      $("#weatherIcon").append(weatherStamp);
 
       // updates the current temperature in Farhenheit
-      var tempF = (success.main.temp - 273.15) * 1.8 + 32;
-      var updateWeatherTemp = tempF;
-      var weatherTemp = $("<span>");
-      weatherTemp.text(updateWeatherTemp);
+
+      var updateWeatherTemp = success.main.temp;
       $("#temperature").append(
-        "Temperature: " + updateWeatherTemp.toFixed(2) + "\u00B0" + " F"
+        "Temperature: " + updateWeatherTemp + "\u00B0" + " F"
       );
 
       // updates the current humidity of the location
       var updateHumidity = success.main.humidity;
-      var humiditySection = $("<span>");
-      humiditySection.text(updateHumidity);
-      $("#humidity").append("Humidity: " + humiditySection + " %");
+      $("#humidity").append("Humidity: " + updateHumidity + " %");
 
       // updates the current wind speed
-      var speedConvert = success.wind.speed * 2.236936;
-      var windSpeedConvert = speedConvert;
-      var speedOfWind = $("<span>");
-      speedOfWind.text(windSpeedConvert);
-      $("#wind=speed").append("Wind Speed: " + speedOfWind.toFixed(2) + " mph");
+      var windSpeedConvert = success.wind.speed;
+      $("#wind").append("Wind Speed: " + windSpeedConvert + " mph");
     });
 
-    var secondApiKey = "dc64e956c7bb1cc3844c6359a9099780";
-    var city = $("#search-section").val();
-    var queryURL =
-      "http://api.openweathermap.org/data/2.5/forecast/daily?q=" +
-      city +
-      "&cnt=5&appid=" +
-      secondApiKey;
-
-      $.ajax({
-        url: queryURL,
-        method: "GET",
-      }).then(function (success){
-          console.log(success)
-      });
-    
+    // fiveDayForcast();
   });
 });
 
