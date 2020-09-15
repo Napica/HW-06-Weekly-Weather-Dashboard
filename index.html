@@ -20,20 +20,20 @@
     />
     <!-- Google Fonts CDN -->
     <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap"
       rel="stylesheet"
     />
     <!-- CSS style local -->
     <link rel="stylesheet" href="./assets/style.css" />
   </head>
 
-  <body>    
+  <body>
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
         <h1 id="title" class="display-3 text-center">Weather Dashboard</h1>
       </div>
     </div>
-     <div class="container">
+    <div class="container">
       <div class="row">
         <div class="col-md-4">
           <h2>Search for a City</h2>
@@ -58,7 +58,10 @@
 
         <div class="col-md-8">
           <div class="col-md-12 card" id="city-specs">
-            <div id="city-name"><span></span></div>
+            <div id="city-name">
+              <span id="currentDate"></span>
+              <span id="weatherIcon"></span>
+            </div>
             <div id="temperature"></div>
             <div id="humidity"></div>
             <div id="wind-speed"></div>
@@ -78,6 +81,8 @@
       </div>
     </div>
 
+    <!-- Moment.JS Source -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <!-- Local JS Source -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <!-- Bootstrap JS Source -->
