@@ -83,13 +83,28 @@ $(document).ready(function () {
       $("#wind").append("Wind Speed: " + windSpeedConvert + " mph");
 
       // update for interactive UV index
-      
-      var latitude = success.coord.lat
-      var longitutde = success.coord.lon
-      console.log(latitude)
-      console.log(longitutde);
 
+      var latitude = success.coord.lat;
+      var longitude = success.coord.lon;
 
+      var queryURL_uvIndex =
+        "https://api.openweathermap.org/data/2.5/uvi?appid=" +
+        apiKey +
+        "&lon=" +
+        longitude +
+        "&lat=" +
+        latitude;
+
+        $.ajax({
+          url: queryURL_uvIndex,
+          method: "GET"
+        }).then(function (indexValue) {
+          var indexUVValue = $("#UV-Index");
+          indexUVValue.empty();
+          // console.log(indexValue.value);
+          // console.log(queryURL_uvIndex);
+          
+        })
     });
 
     // fiveDayForcast();
