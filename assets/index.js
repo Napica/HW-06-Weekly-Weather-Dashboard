@@ -95,18 +95,34 @@ $(document).ready(function () {
         "&lat=" +
         latitude;
 
-        $.ajax({
-          url: queryURL_uvIndex,
-          method: "GET"
-        }).then(function (indexValue) {
-          var indexUVValue = $("#UV-Index");
-          indexUVValue.empty();
-          
-        })
-    });
+      $.ajax({
+        url: queryURL_uvIndex,
+        method: "GET",
+      }).then(function (indexValue) {
+        var indexUVValue = $(".UV-Index");
+        indexUVValue.empty();
 
-    // fiveDayForcast();
+        // create variable
+
+        var uvIndexSection = $("<p>")
+
+        // give variable content
+        uvIndexSection.addClass("btn btn-md");
+        uvIndexSection.text(indexValue.value + " UV-Index")
+        
+        if (indexValue.value < 4){
+          uvIndexSection.addClass("btn-success")
+        } else if (indexValue.value <= 7){
+          uvIndexSection.addClass("btn-warning");
+        } else {
+          uvIndexSection.addClass("btn-danger");
+        }          
+        indexUVValue.append(uvIndexSection)
+      });
+    });
   });
+
+  // fiveDayForcast();
 });
 
 // localStorage approach
