@@ -43,9 +43,12 @@ $(document).ready(function () {
       datePull.css = ("padding", "20px");
       $(".currentDate").append("( " + datePull + " )");
 
-      //  NEED TO WORK ON ADDING ICON
-      // var weatherStamp = success.weather.icon;
-      // $(".weatherIcon").append(weatherStamp);
+      //  updates interactive icon
+
+      var weatherStamp = success.weather[0].icon;
+      var currentIcon = $("<img>");
+      currentIcon.attr("src", "http://openweathermap.org/img/w/" + weatherStamp + ".png");
+      $(".weatherIcon").append(currentIcon);
 
       // updates the current temperature in Farhenheit
 
