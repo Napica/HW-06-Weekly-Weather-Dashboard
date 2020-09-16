@@ -1,13 +1,17 @@
 $(document).ready(function () {
   // DOM variables
   var searchFormEl = $("#search-form");
+  var inputEl = $("#search-section");
   var searchDisplayEl = $("#search-display");
   var cityArchives = [];
- 
 
   searchFormEl.on("submit", function (event) {
     event.preventDefault();
+    
+    submitCity();
+  });
 
+  function submitCity() {
     var apiKey = "a5d50a95ebdfda3d62868461aaacdca4";
     var city = $("#search-section").val();
     var queryURL =
@@ -21,7 +25,7 @@ $(document).ready(function () {
       url: queryURL,
       method: "GET",
     }).then(function (success) {
-
+     
       // updates the name of the city searched
       var updateName = success.name;
       var cityName = $("<span>");
@@ -109,10 +113,12 @@ $(document).ready(function () {
         method: "GET",
       }).then(function (success) {
         var weatherFiveDayForcast = $("#5DaySection");
+        var title = $("#forecastTitle");
         weatherFiveDayForcast.empty();
+        title.empty()
         // create for loop to iterate through the object array to populate exactly 5 days
 
-        var title = $("#forecastTitle");
+        
         var fiveDayTitle = $("<h3>");
         fiveDayTitle.text("5 Day Forecast");
         title.append(fiveDayTitle);
@@ -156,6 +162,5 @@ $(document).ready(function () {
         }
       });
     });
-  });
+  }
 });
-
