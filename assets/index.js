@@ -2,15 +2,8 @@ $(document).ready(function () {
   // DOM variables
   var searchFormEl = $("#search-form");
   var searchDisplayEl = $("#search-display");
-
-  // JS variables
-  // will be used for localStorage
   var cityArchives = [];
-  // function definitiions
-
-  // function calls
-
-  // Event listeners
+ 
 
   searchFormEl.on("submit", function (event) {
     event.preventDefault();
@@ -166,12 +159,3 @@ $(document).ready(function () {
   });
 });
 
-// localStorage approach
-// 1) create search results DIv
-// 2) Dynamically create a new element (Button)
-// dont forget to add clear();
-// 3) create an event function that grabs the value of the button
-// event bubbling
-// $(this)
-// 4) make a nother API call from the value of the button.
-// 5) create an array to pull the generated index from
