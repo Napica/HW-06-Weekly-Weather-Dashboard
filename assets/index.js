@@ -2,30 +2,10 @@ $(document).ready(function () {
   // DOM variables
   var searchFormEl = $("#search-form");
   var searchDisplayEl = $("#search-display");
-  var submitBtnEl = $("#submit-btn");
 
   // JS variables
 
   // function definitiions
-  //   function fiveDayForcast() {
-  //     // for 5 day forcast section
-
-  //     var secondApiKey = "a5d50a95ebdfda3d62868461aaacdca4";
-  //     var city = $("#search-section").val();
-  //     var queryURL =
-  //       "http://api.openweathermap.org/data/2.5/forecast?q=" +
-  //       city +
-  //       "&units=imperial" +
-  //       "&appid=" +
-  //       secondApiKey;
-
-  //     $.ajax({
-  //       url: queryURL,
-  //       method: "GET",
-  //     }).then(function (response) {
-  //         console.log(response);
-  //     });
-  //   }
 
   // function calls
 
@@ -64,8 +44,8 @@ $(document).ready(function () {
       $(".currentDate").append("( " + datePull + " )");
 
       //  NEED TO WORK ON ADDING ICON
-      var weatherStamp = success.weather.icon;
-      $(".weatherIcon").append(weatherStamp);
+      // var weatherStamp = success.weather.icon;
+      // $(".weatherIcon").append(weatherStamp);
 
       // updates the current temperature in Farhenheit
 
@@ -101,23 +81,37 @@ $(document).ready(function () {
       }).then(function (indexValue) {
         var indexUVValue = $(".UV-Index");
         indexUVValue.empty();
-
-        // create variable
-
-        var uvIndexSection = $("<p>")
-
-        // give variable content
+        var uvIndexSection = $("<p>");
         uvIndexSection.addClass("btn btn-md");
-        uvIndexSection.text(indexValue.value + " UV-Index")
-        
-        if (indexValue.value < 4){
-          uvIndexSection.addClass("btn-success")
-        } else if (indexValue.value <= 7){
+        uvIndexSection.text(indexValue.value + " UV-Index");
+
+        if (indexValue.value < 4) {
+          uvIndexSection.addClass("btn-success");
+        } else if (indexValue.value <= 7) {
           uvIndexSection.addClass("btn-warning");
         } else {
           uvIndexSection.addClass("btn-danger");
-        }          
-        indexUVValue.append(uvIndexSection)
+        }
+        indexUVValue.append(uvIndexSection);
+      });
+
+      // for 5 day forcast section
+
+      var secondApiKey = "a5d50a95ebdfda3d62868461aaacdca4";
+      var city = $("#search-section").val();
+      var queryURL_5DayForcast =
+        "http://api.openweathermap.org/data/2.5/forecast?q=" +
+        city +
+        "&units=imperial" +
+        "&appid=" +
+        secondApiKey;
+
+      $.ajax({
+        url: queryURL_5DayForcast,
+        method: "GET",
+      }).then(function (success) {
+        
+
       });
     });
   });
