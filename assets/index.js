@@ -4,7 +4,8 @@ $(document).ready(function () {
   var searchDisplayEl = $("#search-display");
 
   // JS variables
-
+  // will be used for localStorage
+  var cityArchives = [];
   // function definitiions
 
   // function calls
@@ -47,7 +48,10 @@ $(document).ready(function () {
 
       var weatherStamp = success.weather[0].icon;
       var currentIcon = $("<img>");
-      currentIcon.attr("src", "http://openweathermap.org/img/w/" + weatherStamp + ".png");
+      currentIcon.attr(
+        "src",
+        "http://openweathermap.org/img/w/" + weatherStamp + ".png"
+      );
       $(".weatherIcon").append(currentIcon);
 
       // updates the current temperature in Farhenheit
@@ -101,7 +105,6 @@ $(document).ready(function () {
       // for 5 day forcast section
 
       var secondApiKey = "a5d50a95ebdfda3d62868461aaacdca4";
-      var city = $("#search-section").val();
       var queryURL_5DayForcast =
         "http://api.openweathermap.org/data/2.5/forecast?q=" +
         city +
@@ -113,13 +116,55 @@ $(document).ready(function () {
         url: queryURL_5DayForcast,
         method: "GET",
       }).then(function (success) {
-        
+        var weatherFiveDayForcast = $("#5DaySection");
+        weatherFiveDayForcast.empty();
+        // create for loop to iterate through the object array to populate exactly 5 days
 
+        var title = $("#forecastTitle");
+        var fiveDayTitle = $("<h3>");
+        fiveDayTitle.text("5 Day Forecast");
+        title.append(fiveDayTitle);
+
+        for (var i = 0; i < success.list.length; i = i + 8) {
+          var fiveDays = success.list[i];
+          // create variables
+          var fiveDayContainer = $("#5DaySection");
+          var fiveDaySections = $("<p>");
+          // add content
+          fiveDaySections.addClass("col");
+          var dayContainer = $("<p>");
+          dayContainer.addClass("card bg-light text-dark");
+          var predictedDate = $("<h6>");
+          predictedDate.addClass("card-title");
+          predictedDate.text(new Date(fiveDays.dt_txt).toLocaleDateString());
+          var dayTemp = $("<p>");
+          dayTemp.addClass("card-text");
+          dayTemp.text("Temp: " + fiveDays.main.temp);
+
+          var dayHum = $("<p>");
+          var dayHumidity = fiveDays.main.humidity;
+          dayHum.addClass("card-text");
+          dayHum.text("Hum: " + dayHumidity);
+
+          var dayIcon = fiveDays.weather[0].icon;
+          var currentDayIcon = $("<img>");
+          currentDayIcon.attr(
+            "src",
+            "http://openweathermap.org/img/w/" + dayIcon + ".png"
+          );
+
+          // append to item
+          dayContainer.append(predictedDate);
+          dayContainer.append(dayTemp);
+          dayContainer.append(dayHum);
+          dayContainer.append(currentDayIcon);
+          fiveDaySections.append(dayContainer);
+
+          fiveDayContainer.append(fiveDaySections);
+        }
       });
     });
   });
-
-  // fiveDayForcast();
 });
 
 // localStorage approach
