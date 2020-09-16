@@ -28,7 +28,6 @@ $(document).ready(function () {
       url: queryURL,
       method: "GET",
     }).then(function (success) {
-      console.log(success);
 
       // updates the name of the city searched
       var updateName = success.name;
