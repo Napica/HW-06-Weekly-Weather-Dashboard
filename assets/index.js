@@ -50,7 +50,7 @@ $(document).ready(function () {
       var currentIcon = $("<img>");
       currentIcon.attr(
         "src",
-        "http://openweathermap.org/img/w/" + weatherStamp + ".png"
+        "https://openweathermap.org/img/w/" + weatherStamp + ".png"
       );
       $(".weatherIcon").append(currentIcon);
 
@@ -106,7 +106,7 @@ $(document).ready(function () {
 
       var secondApiKey = "a5d50a95ebdfda3d62868461aaacdca4";
       var queryURL_5DayForcast =
-        "http://api.openweathermap.org/data/2.5/forecast?q=" +
+        "https://api.openweathermap.org/data/2.5/forecast?q=" +
         city +
         "&units=imperial" +
         "&appid=" +
@@ -150,7 +150,7 @@ $(document).ready(function () {
           var currentDayIcon = $("<img>");
           currentDayIcon.attr(
             "src",
-            "http://openweathermap.org/img/w/" + dayIcon + ".png"
+            "https://openweathermap.org/img/w/" + dayIcon + ".png"
           );
 
           // append to item
