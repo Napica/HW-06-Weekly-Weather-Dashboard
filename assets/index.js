@@ -1,15 +1,22 @@
 $(document).ready(function () {
-  // DOM variables
   var searchFormEl = $("#search-form");
-  var inputEl = $("#search-section");
-  var searchDisplayEl = $("#search-display");
   var cityArchives = [];
 
   searchFormEl.on("submit", function (event) {
     event.preventDefault();
-
     submitCity();
   });
+
+  function previousCity() {
+    var searchDisplayEl = $("#search-display");
+    console.log(searchDisplayEl);
+    for (var i = 0; i < cityArchives.length; i++) {
+      var cityBtn = $("<button>");
+      console.log(cityBtn);
+      cityBtn.text(cityArchives[i]);
+      searchDisplayEl.append(cityBtn);
+    }
+  }
 
   function submitCity() {
     var apiKey = "a5d50a95ebdfda3d62868461aaacdca4";
@@ -122,7 +129,6 @@ $(document).ready(function () {
         var title = $("#forecastTitle");
         weatherFiveDayForcast.empty();
         title.empty();
-        // create for loop to iterate through the object array to populate exactly 5 days
 
         var fiveDayTitle = $("<h3>");
         fiveDayTitle.text("5 Day Forecast");
@@ -130,7 +136,7 @@ $(document).ready(function () {
 
         for (var i = 0; i < success.list.length; i = i + 8) {
           var fiveDays = success.list[i];
-          // create variables
+
           var fiveDayContainer = $("#5DaySection");
           var fiveDaySections = $("<p>");
 
@@ -149,7 +155,7 @@ $(document).ready(function () {
           var dayHum = $("<p>");
           var dayHumidity = fiveDays.main.humidity;
           dayHum.addClass("card-text");
-          dayHum.text("Hum: " + dayHumidity);
+          dayHum.text("Hum: " + dayHumidity + " %");
 
           var dayIcon = fiveDays.weather[0].icon;
           var currentDayIcon = $("<img>");
@@ -157,9 +163,8 @@ $(document).ready(function () {
             "src",
             "https://openweathermap.org/img/w/" + dayIcon + ".png"
           );
-          currentDayIcon.css("width", "50px")
+          currentDayIcon.css("width", "50px");
 
-          // append to item
           dayContainer.append(predictedDate);
           dayContainer.append(dayTemp);
           dayContainer.append(dayHum);
@@ -170,5 +175,9 @@ $(document).ready(function () {
         }
       });
     });
+
+    // previousCity();
+    cityArchives.push(submitCity);
+    localStorage.setItem(cityArchives, submitCity);
   }
 });
