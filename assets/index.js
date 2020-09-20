@@ -25,11 +25,11 @@ $(document).ready(function () {
       url: queryURL,
       method: "GET",
     }).then(function (success) {
-      var timeLib = moment();
-      var datePull = timeLib.format("L");
+      // var timeLib = moment();
+      // var datePull = timeLib.format("L");
 
       var citySpecs = $("#city-specs");
-      citySpecs.empty()
+      citySpecs.empty();
 
       citySpecsContainer = $("<div>");
 
@@ -37,20 +37,22 @@ $(document).ready(function () {
       cityContainer.addClass("card bg-light text-dark");
 
       // updates the name of the city searched
+      var timeLib = moment();
+      var datePull = timeLib.format("L");
       var updateName = $("<h1>");
       updateName.addClass("card-title");
       updateName.text(success.name + " " + datePull);
 
-      // var iconSpan = $("<span>")
-      // updateName.append(iconSpan)
+      var iconSpan = $("<span>");
+      updateName.append(iconSpan);
 
-      // var weatherStamp = success.weather[0].icon;
-      // var currentIcon = $("<img>");
-      // currentIcon.attr(
-      //   "src",
-      //   "https://openweathermap.org/img/w/" + weatherStamp + ".png"
-      // );
-      // currentIcon.append(iconSpan)
+      var weatherStamp = success.weather[0].icon;
+      var currentIcon = $("<img>");
+      currentIcon.attr(
+        "src",
+        "https://openweathermap.org/img/w/" + weatherStamp + ".png"
+      );
+      currentIcon.append(iconSpan);
 
       var updateWeatherTemp = $("<p>");
       updateWeatherTemp.addClass("card-text");
@@ -58,29 +60,27 @@ $(document).ready(function () {
         "Themperature: " + success.main.temp + "\u00B0" + " F"
       );
 
-    
-        var updateHumidity = $("<p>")
-        updateHumidity.addClass("card-text");
-        updateHumidity.text("Humidity: " + success.main.humidity + " %")
+      var updateHumidity = $("<p>");
+      updateHumidity.addClass("card-text");
+      updateHumidity.text("Humidity: " + success.main.humidity + " %");
 
-        var windSpeedConvert = $("<p>")
-        windSpeedConvert.addClass("card-text")
-        windSpeedConvert.text("Wind Speed: " + success.wind.speed + " mph")  
+      var windSpeedConvert = $("<p>");
+      windSpeedConvert.addClass("card-text");
+      windSpeedConvert.text("Wind Speed: " + success.wind.speed + " mph");
 
-        
-        // last left off trying to append the index to the P tag  !!!!!!!!!!!!!!!!!!!!!!!!!
+      // last left off trying to append the index to the P tag  !!!!!!!!!!!!!!!!!!!!!!!!!
 
       // append
 
-      cityContainer.append(updateName);
+      // cityContainer.append(updateName);
       // cityContainer.append(iconSpan)
-      cityContainer.append(updateWeatherTemp)
-      cityContainer.append(updateHumidity)
-      cityContainer.append(windSpeedConvert)
+      // cityContainer.append(updateWeatherTemp)
+      // cityContainer.append(updateHumidity)
+      // cityContainer.append(windSpeedConvert)
       // cityContainer.append()
-      citySpecsContainer.append(cityContainer);
+      // citySpecsContainer.append(cityContainer);
 
-      citySpecs.append(citySpecsContainer);
+      // citySpecs.append(citySpecsContainer);
 
       // update for interactive UV index
 
@@ -98,25 +98,35 @@ $(document).ready(function () {
       $.ajax({
         url: queryURL_uvIndex,
         method: "GET",
-      }).then(function (indexUVValue) { 
-        indexUVValue.empty();
-        var uvIndexSection = $("<span>");
-        uvIndexSection.addClass("btn btn-md");
-        uvIndexSection.text(indexValue.value + " UV-Index");
+      }).then(function (indexUVValue) {
+        // console.log(indexUVValue)
+        var uvIndexSection = indexUVValue.value;
+        var uvIndexItem = $("<button>");
+        uvIndexItem.css("width", "50px");
+        // uvIndexItem.addClass("btn btn-md");
+        uvIndexItem.text(uvIndexSection);
+        // console.log(uvIndexSection)
 
-        if (indexValue.value < 4) {
-          uvIndexSection.addClass("btn-success");
-        } else if (indexValue.value <= 7) {
-          uvIndexSection.addClass("btn-warning");
+        if (uvIndexSection < 4) {
+          uvIndexItem.css("background-color", "green");
+        } else if (uvIndexSection <= 7) {
+          uvIndexItem.css("background-color", "yellow");
         } else {
-          uvIndexSection.addClass("btn-danger");
+          uvIndexItem.css("background-color", "red");
         }
-        indexUVValue.append(uvIndexSection);
+
+        cityContainer.append(updateName);
+        cityContainer.append(iconSpan);
+        cityContainer.append(updateWeatherTemp);
+        cityContainer.append(updateHumidity);
+        cityContainer.append(windSpeedConvert);
+        cityContainer.append(uvIndexItem);
+        citySpecsContainer.append(cityContainer);
+
+        citySpecs.append(citySpecsContainer);
+
+        // indexItem.append(uvIndexItem);
       });
-      
-
-
-
 
       // for 5 day forcast section
 
@@ -158,7 +168,7 @@ $(document).ready(function () {
 
           var dayTemp = $("<p>");
           dayTemp.addClass("card-text");
-          dayTemp.text("Temp: " + fiveDays.main.temp);
+          dayTemp.text("Temp: " + fiveDays.main.temp + "\u00B0" + " F");
 
           var dayHum = $("<p>");
           var dayHumidity = fiveDays.main.humidity;
