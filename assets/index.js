@@ -7,7 +7,7 @@ $(document).ready(function () {
 
   searchFormEl.on("submit", function (event) {
     event.preventDefault();
-    
+
     submitCity();
   });
 
@@ -25,45 +25,62 @@ $(document).ready(function () {
       url: queryURL,
       method: "GET",
     }).then(function (success) {
-     
-      // updates the name of the city searched
-      var updateName = success.name;
-      var cityName = $("<span>");
-      cityName.text(updateName);
-      cityName.addClass("font-weight-bold");
-      cityName.css("font-size", "40px");
-      $(".city-name").prepend(cityName);
-
-      // updates the current date of the search
       var timeLib = moment();
       var datePull = timeLib.format("L");
-      datePull.css = ("padding", "20px");
-      $(".currentDate").append("( " + datePull + " )");
 
-      //  updates interactive icon
+      var citySpecs = $("#city-specs");
+      citySpecs.empty()
 
-      var weatherStamp = success.weather[0].icon;
-      var currentIcon = $("<img>");
-      currentIcon.attr(
-        "src",
-        "https://openweathermap.org/img/w/" + weatherStamp + ".png"
+      citySpecsContainer = $("<div>");
+
+      var cityContainer = $("<p>");
+      cityContainer.addClass("card bg-light text-dark");
+
+      // updates the name of the city searched
+      var updateName = $("<h1>");
+      updateName.addClass("card-title");
+      updateName.text(success.name + " " + datePull);
+
+      // var iconSpan = $("<span>")
+      // updateName.append(iconSpan)
+
+      // var weatherStamp = success.weather[0].icon;
+      // var currentIcon = $("<img>");
+      // currentIcon.attr(
+      //   "src",
+      //   "https://openweathermap.org/img/w/" + weatherStamp + ".png"
+      // );
+      // currentIcon.append(iconSpan)
+
+      var updateWeatherTemp = $("<p>");
+      updateWeatherTemp.addClass("card-text");
+      updateWeatherTemp.text(
+        "Themperature: " + success.main.temp + "\u00B0" + " F"
       );
-      $(".weatherIcon").append(currentIcon);
 
-      // updates the current temperature in Farhenheit
+    
+        var updateHumidity = $("<p>")
+        updateHumidity.addClass("card-text");
+        updateHumidity.text("Humidity: " + success.main.humidity + " %")
 
-      var updateWeatherTemp = success.main.temp;
-      $(".temperature").append(
-        "Temperature: " + updateWeatherTemp + "\u00B0" + " F"
-      );
+        var windSpeedConvert = $("<p>")
+        windSpeedConvert.addClass("card-text")
+        windSpeedConvert.text("Wind Speed: " + success.wind.speed + " mph")  
 
-      // updates the current humidity of the location
-      var updateHumidity = success.main.humidity;
-      $(".humidity").append("Humidity: " + updateHumidity + " %");
+        
+        // last left off trying to append the index to the P tag  !!!!!!!!!!!!!!!!!!!!!!!!!
 
-      // updates the current wind speed
-      var windSpeedConvert = success.wind.speed;
-      $(".wind").append("Wind Speed: " + windSpeedConvert + " mph");
+      // append
+
+      cityContainer.append(updateName);
+      // cityContainer.append(iconSpan)
+      cityContainer.append(updateWeatherTemp)
+      cityContainer.append(updateHumidity)
+      cityContainer.append(windSpeedConvert)
+      // cityContainer.append()
+      citySpecsContainer.append(cityContainer);
+
+      citySpecs.append(citySpecsContainer);
 
       // update for interactive UV index
 
@@ -81,10 +98,9 @@ $(document).ready(function () {
       $.ajax({
         url: queryURL_uvIndex,
         method: "GET",
-      }).then(function (indexValue) {
-        var indexUVValue = $(".UV-Index");
+      }).then(function (indexUVValue) { 
         indexUVValue.empty();
-        var uvIndexSection = $("<p>");
+        var uvIndexSection = $("<span>");
         uvIndexSection.addClass("btn btn-md");
         uvIndexSection.text(indexValue.value + " UV-Index");
 
@@ -97,6 +113,10 @@ $(document).ready(function () {
         }
         indexUVValue.append(uvIndexSection);
       });
+      
+
+
+
 
       // for 5 day forcast section
 
@@ -115,10 +135,9 @@ $(document).ready(function () {
         var weatherFiveDayForcast = $("#5DaySection");
         var title = $("#forecastTitle");
         weatherFiveDayForcast.empty();
-        title.empty()
+        title.empty();
         // create for loop to iterate through the object array to populate exactly 5 days
 
-        
         var fiveDayTitle = $("<h3>");
         fiveDayTitle.text("5 Day Forecast");
         title.append(fiveDayTitle);
@@ -128,13 +147,15 @@ $(document).ready(function () {
           // create variables
           var fiveDayContainer = $("#5DaySection");
           var fiveDaySections = $("<p>");
-          // add content
+
           fiveDaySections.addClass("col");
           var dayContainer = $("<p>");
           dayContainer.addClass("card bg-light text-dark");
+
           var predictedDate = $("<h6>");
           predictedDate.addClass("card-title");
           predictedDate.text(new Date(fiveDays.dt_txt).toLocaleDateString());
+
           var dayTemp = $("<p>");
           dayTemp.addClass("card-text");
           dayTemp.text("Temp: " + fiveDays.main.temp);
