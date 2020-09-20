@@ -19,7 +19,7 @@ $(document).ready(function () {
   }
 
   function submitCity() {
-    var apiKey = "a5d50a95ebdfda3d62868461aaacdca4";
+    var apiKey = "c0801b5acc7e789af70365a55a60c171";
     var city = $("#search-section").val();
     var queryURL =
       "https://api.openweathermap.org/data/2.5/weather?q=" +
@@ -113,7 +113,7 @@ $(document).ready(function () {
 
       // for 5 day forcast section
 
-      var secondApiKey = "a5d50a95ebdfda3d62868461aaacdca4";
+      var secondApiKey = "c0801b5acc7e789af70365a55a60c171";
       var queryURL_5DayForcast =
         "https://api.openweathermap.org/data/2.5/forecast?q=" +
         city +
