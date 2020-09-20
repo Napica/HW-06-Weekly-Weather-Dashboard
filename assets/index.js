@@ -25,9 +25,6 @@ $(document).ready(function () {
       url: queryURL,
       method: "GET",
     }).then(function (success) {
-      // var timeLib = moment();
-      // var datePull = timeLib.format("L");
-
       var citySpecs = $("#city-specs");
       citySpecs.empty();
 
@@ -36,7 +33,6 @@ $(document).ready(function () {
       var cityContainer = $("<p>");
       cityContainer.addClass("card bg-light text-dark");
 
-      // updates the name of the city searched
       var timeLib = moment();
       var datePull = timeLib.format("L");
       var updateName = $("<h1>");
@@ -52,6 +48,7 @@ $(document).ready(function () {
         "src",
         "https://openweathermap.org/img/w/" + weatherStamp + ".png"
       );
+      currentIcon.css("width", "100px");
       currentIcon.append(iconSpan);
 
       var updateWeatherTemp = $("<p>");
@@ -68,22 +65,6 @@ $(document).ready(function () {
       windSpeedConvert.addClass("card-text");
       windSpeedConvert.text("Wind Speed: " + success.wind.speed + " mph");
 
-      // last left off trying to append the index to the P tag  !!!!!!!!!!!!!!!!!!!!!!!!!
-
-      // append
-
-      // cityContainer.append(updateName);
-      // cityContainer.append(iconSpan)
-      // cityContainer.append(updateWeatherTemp)
-      // cityContainer.append(updateHumidity)
-      // cityContainer.append(windSpeedConvert)
-      // cityContainer.append()
-      // citySpecsContainer.append(cityContainer);
-
-      // citySpecs.append(citySpecsContainer);
-
-      // update for interactive UV index
-
       var latitude = success.coord.lat;
       var longitude = success.coord.lon;
 
@@ -99,14 +80,11 @@ $(document).ready(function () {
         url: queryURL_uvIndex,
         method: "GET",
       }).then(function (indexUVValue) {
-        // console.log(indexUVValue)
         var uvIndexSection = indexUVValue.value;
         var uvIndexItem = $("<button>");
         uvIndexItem.css("width", "50px");
-        // uvIndexItem.addClass("btn btn-md");
-        uvIndexItem.text(uvIndexSection);
-        // console.log(uvIndexSection)
 
+        uvIndexItem.text(uvIndexSection);
         if (uvIndexSection < 4) {
           uvIndexItem.css("background-color", "green");
         } else if (uvIndexSection <= 7) {
@@ -116,7 +94,7 @@ $(document).ready(function () {
         }
 
         cityContainer.append(updateName);
-        cityContainer.append(iconSpan);
+        cityContainer.append(currentIcon);
         cityContainer.append(updateWeatherTemp);
         cityContainer.append(updateHumidity);
         cityContainer.append(windSpeedConvert);
@@ -124,8 +102,6 @@ $(document).ready(function () {
         citySpecsContainer.append(cityContainer);
 
         citySpecs.append(citySpecsContainer);
-
-        // indexItem.append(uvIndexItem);
       });
 
       // for 5 day forcast section
@@ -181,6 +157,7 @@ $(document).ready(function () {
             "src",
             "https://openweathermap.org/img/w/" + dayIcon + ".png"
           );
+          currentDayIcon.css("width", "50px")
 
           // append to item
           dayContainer.append(predictedDate);
